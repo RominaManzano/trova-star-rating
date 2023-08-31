@@ -7,6 +7,8 @@ interface StarRatingProps {
   total: number;
   filled: number;
   onStarClick: (index: number) => void;
+  onMouseEnter: (index: number) => void;
+  onMouseLeave: () => void;
 }
 
 interface StarItem {
@@ -31,6 +33,8 @@ const StarRating: React.FC<StarRatingProps> = ({
   total = 5,
   filled = 0,
   onStarClick,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const stars = getStarsArray(total, filled);
 
@@ -38,10 +42,19 @@ const StarRating: React.FC<StarRatingProps> = ({
     onStarClick(index);
   };
 
+  const handleStarMouseEnter = (index: number) => {
+    onMouseEnter(index);
+  };
+
   return (
     <div>
       {stars.map((star) => (
-        <span key={star.index} onClick={() => handleStarClick(star.index)}>
+        <span
+          key={star.index}
+          onClick={() => handleStarClick(star.index)}
+          onMouseEnter={() => handleStarMouseEnter(star.index)}
+          onMouseLeave={onMouseLeave}
+        >
           {star.filled ? (
             <img src={Filled} className="star-icon" alt="Filled star" />
           ) : (
