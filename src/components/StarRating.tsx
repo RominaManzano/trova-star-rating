@@ -3,6 +3,7 @@ import React from 'react';
 import Star from '../assets/star-rating-white.svg';
 import Filled from '../assets/star-rating-filled.svg';
 
+// NOTE: needed to add more props, cause the state is maintened in the parent per requirements
 interface StarRatingProps {
   total: number;
   filled: number;
@@ -55,11 +56,11 @@ const StarRating: React.FC<StarRatingProps> = ({
           onMouseEnter={() => handleStarMouseEnter(star.index)}
           onMouseLeave={onMouseLeave}
         >
-          {star.filled ? (
-            <img src={Filled} className="star-icon" alt="Filled star" />
-          ) : (
-            <img src={Star} className="star-icon star-icon-filled" alt="Empty star" />
-          )}
+          <img
+            src={star.filled ? Filled : Star}
+            className={`star-icon ${star.filled ? 'star-icon-filled' : ''}`}
+            alt="Star"
+          />
         </span>
       ))}
     </div>
